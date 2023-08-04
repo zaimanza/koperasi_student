@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:student_parcel/pages/Home/context/HomeProvider.dart';
 
 class StudentProvider extends ChangeNotifier {
   StudentProvider(this.ref) : super();
@@ -37,6 +38,7 @@ class StudentProvider extends ChangeNotifier {
     }
     if (sharedPreferences.getString('phoneNumber') != null) {
       phoneNumber = sharedPreferences.getString('phoneNumber')!;
+      await ref.read(homeProvider).getAllParcelByStudent(phoneNumber);
     }
     if (sharedPreferences.getString('password') != null) {
       password = sharedPreferences.getString('password')!;
@@ -67,6 +69,7 @@ class StudentProvider extends ChangeNotifier {
     await sharedPreferences.setString('studentId', res["studentId"]);
     studentId = res["studentId"];
     await sharedPreferences.setString('phoneNumber', res["phoneNumber"]);
+    await ref.read(homeProvider).getAllParcelByStudent(res["phoneNumber"]);
     phoneNumber = res["phoneNumber"];
     await sharedPreferences.setString('token', res["token"]);
     token = res["token"];

@@ -83,6 +83,12 @@ class AuthenticationProvider extends ChangeNotifier {
     if (newPhoneNumber.startsWith("0")) {
       newPhoneNumber = "6" + newPhoneNumber;
     }
+    print({
+      "name": name,
+      "studentId": studentId,
+      "password": password,
+      "phoneNumber": newPhoneNumber
+    });
     var response = await client.post(
       uri,
       body: {
